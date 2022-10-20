@@ -21,6 +21,20 @@ df <- data.frame(gains_enh = table(gains_with_rt$rt_quintile)
                  , losses_enh = table(losses_with_rt$rt_quintile)
                  , cons_enh = table(cons_with_rt$rt_quintile))
 
+df
+# gains_enh.Var1 gains_enh.Freq losses_enh.Var1 losses_enh.Freq cons_enh.Var1
+# 1              1           3030               1            2119             1
+# 2              2          12867               2            4397             2
+# 3              3          25224               3            7414             3
+# 4              4          35794               4           10159             4
+# 5              5          43112               5           15075             5
+# cons_enh.Freq
+# 1           281
+# 2          1550
+# 3          4775
+# 4         10029
+# 5         19820
+
 df$gains_enh_prop <- with(df, (gains_enh.Freq)/(gains_enh.Freq+cons_enh.Freq))
 df$losses_enh_prop <- with(df, (losses_enh.Freq)/(losses_enh.Freq+cons_enh.Freq))
 df$losses_enh_prop <- -1*(df$losses_enh_prop)
@@ -40,11 +54,8 @@ dev.off()
 #Fisher's exact tests for the difference in proportion of gains and losses between replication time quintiles
 
 breast.c <- data.frame(quintile=1:5
-
                                , gains=c(3030, 12867, 25224, 35794, 43112)
-
                                , losses=c(2119, 4397, 7414, 10159, 15075)
-
                                , unchanged=c(281, 1550, 4775, 10029, 19820))
 
 
