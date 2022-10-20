@@ -1,10 +1,5 @@
-#I need to run replicon on the preleukemis ATAC-seq data
-#I'll use the union of normal peaks (only normal + common)
-
 library(GenomicRanges)
 library(GenomicFeatures, lib = '/scratch/zk16/cc3704/R_packages')
-# install.packages("Formula", lib = "/scratch/zk16/cc3704/R_packages/R_4.0.0")
-# install.packages("Hmisc", lib = "/scratch/zk16/cc3704/R_packages/R_4.0.0")
 library("Formula", lib = "/scratch/zk16/cc3704/R_packages/R_4.0.0")
 library("Hmisc", lib = "/scratch/zk16/cc3704/R_packages/R_4.0.0")
 library(data.table)
