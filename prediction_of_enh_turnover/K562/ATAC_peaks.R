@@ -75,7 +75,6 @@ bins_with_atac <- proportion_peaks(genome_bins, atac)
 colnames(bins_with_atac_N) <- c("bin_id", "N_ATAC")
 colnames(bins_with_atac) <- c("bin_id", "prop_ATAC")
 
-
 out_name <- gsub(pattern = "\\.bed", replacement = "", x = args[1])
 write.table(x = bins_with_atac_N, file = paste(out_name, "N_ATAC.txt", sep = "_"), quote = F, row.names=F, sep = '\t')
 write.table(x = bins_with_atac, file = paste(out_name, "prop_ATAC.txt", sep = "_"), quote = F, row.names=F, sep = '\t')
