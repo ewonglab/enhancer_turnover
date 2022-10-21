@@ -38,7 +38,7 @@ For each TF and source speices:
 - we trained 15 models and the best performance one is selected for further prediction.
 
 - we seperate how genome window into three parts for training, held-out validation and held-out testing.
-  - all data excluded chromosome 1 and 2 for model training(chr3toY_shuf.bed (chr3toY_pos_shuf.bed/chr3toY_neg_shuf.bed))
+  - all data excluded chromosome 1 and 2 for model training(chr3toY_shuf.bed (including chr3toY_pos_shuf.bed and chr3toY_neg_shuf.bed))
   - chromosome 1 for model validition (chr1_random_1m.bed)
   - chromosome 2 for model testing (chr2.bed)
   
