@@ -1,4 +1,4 @@
-### all details about Nerual network model architecture and datasets for model training, validation and testing.
+# Nerual network model architecture and datasets for model training, validation and testing
 
 ## Code requirement
 Model requires Python 3.6+. Before you start, it might be easier to create your python evironment by using "requirement.txt" file.
