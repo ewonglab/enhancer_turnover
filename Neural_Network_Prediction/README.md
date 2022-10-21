@@ -10,7 +10,13 @@ python -m venv -r requirement.txt
 ```
 
 ## Modles & Datasets
-The trained models we used for prediction can be found in the models.tar.gz file,
+
+The trained models we used for prediction can be found in the models.tar.gz file. Due to file size limitition, you can access it from the [link](https://drive.google.com/file/d/1h3egck0zs-d7TsbJpkNQUrtMWGiI33HO/view?usp=sharing) 
+
+- CEBPA_hg38trained.model
+- CEBPA_mm10trained.model
+- Hnf4a_hg38_trained.model
+- Hnf4a_mm10trained.model
 
 and datasets in /data folder. All files are organized by the below structure.
 
