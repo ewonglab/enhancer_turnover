@@ -21,7 +21,7 @@ For each TF and source speices:
   - chromosome 2 for model testing (chr2.bed)
   
 
-The **best trained models** we used for prediction can be found in the models.tar.gz file. Due to file size limitition, you can access it from the [link](https://drive.google.com/file/d/1h3egck0zs-d7TsbJpkNQUrtMWGiI33HO/view?usp=sharing). The model can directely use for TF binding prediction.
+The **best trained models** we used for prediction can be found in the models.tar.gz file. Due to file size limitation, you can access it from the [link](https://drive.google.com/file/d/1h3egck0zs-d7TsbJpkNQUrtMWGiI33HO/view?usp=sharing). The model can directely use for TF binding prediction.
 
 - CEBPA_hg38trained.model
 - CEBPA_mm10trained.model
@@ -29,9 +29,8 @@ The **best trained models** we used for prediction can be found in the models.ta
 - Hnf4a_mm10trained.model
 
 **All datasets files** are organized by the below structure, you can easily re-create from the github script according to our paper. 
-```
-- /data	
 
+```
 └── data
     ├── hg38
     │   ├── CEBPA
