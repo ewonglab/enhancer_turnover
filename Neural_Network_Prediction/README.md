@@ -10,7 +10,8 @@ python -m venv -r requirement.txt
 ```
 
 ## Modles & Datasets
-The trained models we used for prediction can be found in the /models file folder, and datasets in /data folder.
+The trained models we used for prediction can be found in the /models file folder, and datasets in /data folder. All files are organized by the below structure.
+
 ```
 - /model
 
