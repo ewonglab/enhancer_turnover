@@ -40,6 +40,6 @@ For each TF and source speices:
   - chromosome 2 for model testing (chr2.bed)
   
  
-If you want to train your own model, please refer to the oirginal domain adaptive model work, more detailed steps can be found in their [github].(https://github.com/seqcode/cross-species-domain-adaptation)
+If you want to train your own model, please refer to the oirginal domain adaptive model work, more detailed steps can be found in their [github](https://github.com/seqcode/cross-species-domain-adaptation).
 
 
