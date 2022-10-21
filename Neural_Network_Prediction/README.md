@@ -3,25 +3,18 @@
 All models related code and datasets can be found here.
 
 ## Code requirement
-Model requires Python 3.6+. Before you start, it might be easier to create your python evironment by using "requirement.txt" file.
+Script requires Python 3.6+. Before you start, it might be easier to create your python evironment by using "requirement.txt" file.
 
 ```
 python -m venv -r requirement.txt
 ```
 
 ## Modles & Datasets
-The trained models we used for prediction can be found in the /models file folder, and datasets in /data folder. All files are organized by the below structure.
+The trained models we used for prediction can be found in the models.tar.gz file,
+
+and datasets in /data folder. All files are organized by the below structure.
 
 ```
-- /model
-
-└── models
-    ├── hg38
-    │   ├── CEBPA
-    │   └── Hnf4a
-    └── mm10
-        ├── CEBPA
-        └── Hnf4a
 - /data	
 
 └── data
