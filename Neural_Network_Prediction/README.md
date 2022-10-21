@@ -1,13 +1,13 @@
-###all details about Nerual network model architecture and datasets for model training, validation and testing.
+### all details about Nerual network model architecture and datasets for model training, validation and testing.
 
-##Code requirement
+## Code requirement
 Model requires Python 3.6+. Before you start, it might be easier to create your python evironment by using "requirement.txt" file.
 
 ```
 python -m venv -r requirement.txt
 ```
 
-##Modles & Datasets
+## Modles & Datasets
 The trained models we used for prediction can be found in the /models file folder, and datasets in /data folder.
 
 - /model
