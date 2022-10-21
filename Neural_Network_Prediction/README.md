@@ -9,7 +9,7 @@ Script requires Python 3.6+. Before you start, it might be easier to create your
 python -m venv -r requirement.txt
 ```
 
-## Modles & Datasets
+## Models & Datasets
 
 For each TF and source speices:
 
