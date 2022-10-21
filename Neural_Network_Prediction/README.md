@@ -21,15 +21,14 @@ For each TF and source speices:
   - chromosome 2 for model testing (chr2.bed)
   
 
-The trained models we used for prediction can be found in the models.tar.gz file. Due to file size limitition, you can access it from the [link](https://drive.google.com/file/d/1h3egck0zs-d7TsbJpkNQUrtMWGiI33HO/view?usp=sharing) 
+The **best trained models** we used for prediction can be found in the models.tar.gz file. Due to file size limitition, you can access it from the [link](https://drive.google.com/file/d/1h3egck0zs-d7TsbJpkNQUrtMWGiI33HO/view?usp=sharing). The model can directely use for TF binding prediction.
 
 - CEBPA_hg38trained.model
 - CEBPA_mm10trained.model
 - Hnf4a_hg38_trained.model
 - Hnf4a_mm10trained.model
 
-and datasets in /data folder. All files are organized by the below structure.
-
+**All datasets files** are organized by the below structure, you can easily re-create from the github script according to our paper. 
 ```
 - /data	
 
@@ -43,5 +42,10 @@ and datasets in /data folder. All files are organized by the below structure.
 ```
  
 If you want to train your own model, please refer to the oirginal domain adaptive model work, more detailed steps can be found in their [github](https://github.com/seqcode/cross-species-domain-adaptation).
+
+## Analysis Scripts
+
+A few scripts we created to do model prediction and further analysis.
+
 
 
