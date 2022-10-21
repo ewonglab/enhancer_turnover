@@ -11,6 +11,7 @@ python -m venv -r requirement.txt
 The trained models we used for prediction can be found in the /models file folder, and datasets in /data folder.
 
 - /model
+
 └── models
     ├── hg38
     │   ├── CEBPA
@@ -19,6 +20,7 @@ The trained models we used for prediction can be found in the /models file folde
         ├── CEBPA
         └── Hnf4a
 - /data	
+
 └── data
     ├── hg38
     │   ├── CEBPA
