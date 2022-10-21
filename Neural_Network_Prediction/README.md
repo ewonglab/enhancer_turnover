@@ -11,6 +11,16 @@ python -m venv -r requirement.txt
 
 ## Modles & Datasets
 
+For each TF and source speices:
+
+- we trained 15 models and the best performance one is selected for further prediction.
+
+- we seperate how genome window into three parts for training, held-out validation and held-out testing.
+  - all data excluded chromosome 1 and 2 for model training(chr3toY_shuf.bed (including chr3toY_pos_shuf.bed and chr3toY_neg_shuf.bed))
+  - chromosome 1 for model validition (chr1_random_1m.bed)
+  - chromosome 2 for model testing (chr2.bed)
+  
+
 The trained models we used for prediction can be found in the models.tar.gz file. Due to file size limitition, you can access it from the [link](https://drive.google.com/file/d/1h3egck0zs-d7TsbJpkNQUrtMWGiI33HO/view?usp=sharing) 
 
 - CEBPA_hg38trained.model
@@ -31,16 +41,6 @@ and datasets in /data folder. All files are organized by the below structure.
         ├── CEBPA
         └── Hnf4a
 ```
-
-For each TF and source speices:
-
-- we trained 15 models and the best performance one is selected for further prediction.
-
-- we seperate how genome window into three parts for training, held-out validation and held-out testing.
-  - all data excluded chromosome 1 and 2 for model training(chr3toY_shuf.bed (including chr3toY_pos_shuf.bed and chr3toY_neg_shuf.bed))
-  - chromosome 1 for model validition (chr1_random_1m.bed)
-  - chromosome 2 for model testing (chr2.bed)
-  
  
 If you want to train your own model, please refer to the oirginal domain adaptive model work, more detailed steps can be found in their [github](https://github.com/seqcode/cross-species-domain-adaptation).
 
