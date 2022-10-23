@@ -40,7 +40,7 @@ The **best trained models** we used for prediction can be found in the models.ta
  
 If you want to train your own model, please refer to the oirginal domain adaptive model work, more detailed steps can be found in their [github](https://github.com/seqcode/cross-species-domain-adaptation).
 
-## Datasets 
+## Datasets for prediction
 
 Datasets are used in "Evolutionary sequence divergence predicts functional changes to TF binding in enhancer turnover" section.
 
@@ -58,6 +58,5 @@ A few scripts we created to do model prediction and further analysis can be foun
 - piechart.ipynb: draw piechart for bind prediction for human/mouse datasets respectively.
 - roc_plot.ipynb: ROC curve of our trained models.
 
-
-
+Please refer to our paper "DNA replication timing predicts transcription factor binding and the rate of enhancer turnover" for more details.
 
