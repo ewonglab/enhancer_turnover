@@ -9,7 +9,7 @@ Script requires Python 3.6+. Before you start, it might be easier to create your
 python -m venv -r requirement.txt
 ```
 
-Before you repeat all analysis, please run '''git clone https://github.com/seqcode/cross-species-domain-adaptation.git''' first to make sure you have all needed files under your working directory.
+Before you repeat all analysis, please run ```git clone https://github.com/seqcode/cross-species-domain-adaptation.git``` first to make sure you have all needed files under your working directory.
 
 ## Models & Datasets
 
