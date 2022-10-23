@@ -42,13 +42,24 @@ The **best trained models** we used for prediction can be found in the models.ta
  
 If you want to train your own model, please refer to the oirginal domain adaptive model work, more detailed steps can be found in their [github](https://github.com/seqcode/cross-species-domain-adaptation).
 
+## Datasets 
+
+Datasets are used in "Evolutionary sequence divergence predicts functional changes to TF binding in enhancer turnover" section.
+
+There are two sets of datasets.
+- human-specific enhancers and their matched non-enhancer counterpart in mouse
+- mouse-specific enhancers and their matched non-enhancer counterpart in human
+
+You can find the files in the data folder.
+
 ## Analysis Scripts
 
 A few scripts we created to do model prediction and further analysis can be found in the analysis folder. All scripts are modified on [original github], so please "git clone https://github.com/seqcode/cross-species-domain-adaptation.git" first.
 
--  :do prediction and save predicted values in *.ipynb
--  :draw piechart and Fisher's exact Test
--  
+- model_predict: do model prediction and save predicted values in *.npy.
+- piechart.ipynb: draw piechart for bind prediction for human/mouse datasets respectively.
+- roc_plot.ipynb: ROC curve of our trained models.
+
 
 
 
