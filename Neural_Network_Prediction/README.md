@@ -44,9 +44,9 @@ If you want to train your own model, please refer to the oirginal domain adaptiv
 
 ## Analysis Scripts
 
-A few scripts we created to do model prediction and further analysis can be found in the analysis folder.
+A few scripts we created to do model prediction and further analysis can be found in the analysis folder. All scripts are modified on [original github], so please "git clone https://github.com/seqcode/cross-species-domain-adaptation.git" first.
 
--  :do prediction and save predicted values in *.npy
+-  :do prediction and save predicted values in *.ipynb
 -  :draw piechart and Fisher's exact Test
 -  
 
