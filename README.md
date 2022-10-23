@@ -1,7 +1,7 @@
-# enhancer_turnover
+# Enhancer Turnover
 Code used for the project "DNA replication timing predicts transcription factor binding and the rate of enhancer turnover"
 
-# Content
+# Table of contents
 
 - cancer
 - in_vivo
