@@ -44,7 +44,7 @@ If you want to train your own model, please refer to the oirginal domain adaptiv
 
 Datasets are used in "Evolutionary sequence divergence predicts functional changes to TF binding in enhancer turnover" section.
 
-There are two sets of datasets.
+There are two sets of data.
 - human-specific enhancers and their matched non-enhancer counterpart in mouse
 - mouse-specific enhancers and their matched non-enhancer counterpart in human
 
