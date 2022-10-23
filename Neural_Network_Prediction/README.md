@@ -44,7 +44,11 @@ If you want to train your own model, please refer to the oirginal domain adaptiv
 
 ## Analysis Scripts
 
-A few scripts we created to do model prediction and further analysis.
+A few scripts we created to do model prediction and further analysis can be found in the analysis folder.
+
+-  :do prediction and save predicted values in *.npy
+-  :draw piechart and Fisher's exact Test
+-  
 
 
 
