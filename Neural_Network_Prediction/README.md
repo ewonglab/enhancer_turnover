@@ -52,7 +52,7 @@ You can find the files in the data folder.
 
 ## Analysis Scripts
 
-A few scripts we created to do model prediction and further analysis can be found in the analysis folder. All scripts are modified on [original github], so please "git clone https://github.com/seqcode/cross-species-domain-adaptation.git" first.
+A few scripts we created to do model prediction and further analysis can be found in the analysis folder.
 
 - model_predict: do model prediction and save predicted values in *.npy.
 - piechart.ipynb: draw piechart for bind prediction for human/mouse datasets respectively.
