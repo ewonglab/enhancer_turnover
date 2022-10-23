@@ -8,4 +8,8 @@ There are two sets of datasets.
 
 More specificly, we got four files here.
 
--
+- human_enhancers_hg38_functional.bed
+- mouse_enhancers_hg38_non.functional.bed (matched non-enhancer counterpart)
+
+- mouse_enhancers_mm10_functional.bed
+- human_enhancers_mm10_non.functional.bed (matched non-enhancer counterpart)
