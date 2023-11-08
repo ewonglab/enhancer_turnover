@@ -8,24 +8,22 @@ To ensure you have all the required files in your working directory, run:
 
 ## Models and Datasets
 
-For each TF and genome:
+For each TF and genome, 15 models were trained. Of those,  the best performing model selected.
 
-We trained 15 models, and the one with the best performance was selected for further prediction.
-
-We separate genome windows into three parts: training, held-out validation, and held-out testing.
- - all data excluded chromosome 1 and 2 for model training (chr3toY_shuf.bed (including chr3toY_pos_shuf.bed and chr3toY_neg_shuf.bed))
-chromosome 1 for model validation (chr1_random_1m.bed)
-chromosome 2 for model testing (chr2.bed)
+Genome windows were divided into training, validation, and test set.
+ - All data excluded chromosome 1 and 2 were used for model training (chr3toY_shuf.bed (including chr3toY_pos_shuf.bed and chr3toY_neg_shuf.bed))
+chromosome 1 was used for model validation (chr1_random_1m.bed)
+chromosome 2 was used for model testing (chr2.bed)
   
 
-The models we used for TF binding prediction are in the models.tar.gz file. Due to file size limitations, you can access it from the [link](https://drive.google.com/file/d/1h3egck0zs-d7TsbJpkNQUrtMWGiI33HO/view?usp=sharing).
+The models used for TF binding prediction are in the models.tar.gz file. Due to file size limitations, you can access it from the [link](https://drive.google.com/file/d/1h3egck0zs-d7TsbJpkNQUrtMWGiI33HO/view?usp=sharing).
 
 - CEBPA_hg38trained.model
 - CEBPA_mm10trained.model
 - Hnf4a_hg38_trained.model
 - Hnf4a_mm10trained.model
 
-**All dataset files** are organized by the below structure:
+**All dataset files** are organized as follows:
 
 ```
 └── data
