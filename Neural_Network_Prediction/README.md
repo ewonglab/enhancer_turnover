@@ -9,7 +9,7 @@ To ensure you have all the required files in your working directory, run:
 
 ## Models and Datasets
 
-For each TF and genome, 15 models were trained. Of these, the best performing model selected.
+For each TF and genome, 15 models were trained. Of these, the best performing model was selected.
 
 Genome windows, annotated by overlaps to TFs, were divided into training, validation, and test set.
  - All data excluded chromosome 1 and 2 were used for model training (chr3toY_shuf.bed (including chr3toY_pos_shuf.bed and chr3toY_neg_shuf.bed))
