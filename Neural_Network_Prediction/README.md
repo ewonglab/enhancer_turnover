@@ -1,7 +1,7 @@
 Neural network models and datasets 
 
 ## Code requirement
-The script requires Python 3.6+. Before you start, create your Python environment by using the "requirement.txt" file. ```python -m venv -r requirement.txt```
+The script requires Python 3.6+. A Python environment can be created using the "requirement.txt" file. ```python -m venv -r requirement.txt```
 
 To ensure you have all the required files in your working directory, run:
 ```git clone https://github.com/seqcode/cross-species-domain-adaptation.git``` 
