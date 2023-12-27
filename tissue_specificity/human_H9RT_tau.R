@@ -47,17 +47,14 @@ for(i in 1:4){
   x <- wilcox.test(human.jaspar.tau[human.jaspar.tau$earlyvlate_bin ==i, "Tau"]
                    , human.jaspar.tau[human.jaspar.tau$earlyvlate_bin ==(i+1), "Tau"]
                    , alternative = "greater")
-  print(round(x$p.value, 2))
+  print(x$p.value)
 }
 
 # [1] "test: quintile 1 vs quintile 2"
-# [1] 0.35
-
+# [1] 0.3454562
 # [1] "test: quintile 2 vs quintile 3"
-# [1] 0
-
+# [1] 7.146121e-06
 # [1] "test: quintile 3 vs quintile 4"
-# [1] 0
-
+# [1] 0.002677551
 # [1] "test: quintile 4 vs quintile 5"
-# [1] 0.92
+# [1] 0.9171333
