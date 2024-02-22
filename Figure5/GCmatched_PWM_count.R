@@ -51,3 +51,47 @@ write.table(x = recent_early.counts, file = "recent_EARLY_NULL_humanJAS2020_home
             , quote = F, sep = '\t')
 write.table(x = recent_late.counts, file = "recent_LATE_NULL_humanJAS2020_homer.txt"
             , quote = F, sep = '\t')
+
+                    
+library(tidyr)                    
+early.recent <- read.table(file = "recent_EARLY_NULL_humanJAS2020_homer.txt"
+                           , header = T, stringsAsFactors = F)
+late.recent <- read.table(file = "recent_LATE_NULL_humanJAS2020_homer.txt"
+                          , header = T, stringsAsFactors = F)
+
+early.nonRecent <- read.table(file = "cons_EARLY_NULL_humanJAS2020_homer.txt"
+                              , header = T, stringsAsFactors = F)
+late.nonRecent <- read.table(file = "cons_LATE_NULL_humanJAS2020_homer.txt"
+                             , header = T, stringsAsFactors = F)
+
+early.recent$is.early <- 1
+late.recent$is.early <- 0
+early.nonRecent$is.early <- 1
+late.nonRecent$is.early <- 0
+
+early.recent$is.recent <- 1
+late.recent$is.recent <- 1
+early.nonRecent$is.recent <- 0
+late.nonRecent$is.recent <- 0
+
+recent <- dplyr::bind_rows(early.recent, late.recent)
+non_recent <- dplyr::bind_rows(early.nonRecent, late.nonRecent)
+
+recent[is.na(recent)] <- 0 
+non_recent[is.na(non_recent)] <- 0 
+
+recent <- recent[,c(colnames(recent)[!colnames(recent) %in% c("is.early", "is.recent")]
+                    , "is.early", "is.recent")]
+non_recent <- non_recent[,c(colnames(non_recent)[!colnames(non_recent) %in% c("is.early", "is.recent")]
+                            , "is.early", "is.recent")]
+
+write.table(x = recent, file = "liver_recent_NULL_earlyvlate_jaspar.txt", quote = F)
+write.table(x = non_recent, file = "liver_non.recent_NULL_earlyvlate_jaspar.txt", quote = F)
+
+# table(recent$is.early)
+# 0    1
+# 1999 1999
+# table(non_recent$is.early)
+#
+# 0    1
+# 3539 3539
