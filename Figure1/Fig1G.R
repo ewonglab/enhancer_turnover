@@ -13,7 +13,7 @@ cons.recent.ov.cluster <- function(clust_bed, query_clust, enh_tab){
   result <- enh_tab[unique(x$queryHits),]
   return(table(result$enh_type))}
 
-setwd("/g/data/zk16/cc3704/replication_timing/mouse")
+setwd("./replication_timing/mouse")
 mouse_RT <- read.table(file = "hiratani_plus_germline_18kmeans.txt", header =T
                        , stringsAsFactors = F, sep = '\t')#8966   27
 
@@ -24,7 +24,7 @@ somatic <- c("X46C", "D3", "TT2", "iPSC", "iPSC_1D4"
              , "MEF_female", "MEF_male", "Myoblast")
 germline <- c("sperm.1", "sperm.2", "PGC.male.1", "PGC.female.1")
 
-#mean RT
+# mean RT
 mouse_RT$mean_germlineRT <- apply(mouse_RT[,germline], 1, mean)
 mouse_RT$mean_somaticRT <- apply(mouse_RT[,somatic], 1, mean)
 
@@ -55,15 +55,14 @@ mean_mouseRT <- aggregate(.~kmeans.cluster
 # ENHANCERS
 mouse.enh <- read.table(file = "./roller/mouse_all_enh_byMark_type_and_tissue.bed"
                         , header = F, stringsAsFactors = F
-                        , sep = "\t")#
+                        , sep = "\t")
 # keep only recent enhancers
-recent_enh <- mouse.enh[mouse.enh$V6 == "Recent",]# 80904     7
-# read new definition of conserved enhancers: conserved in min 2 other species (MY DEFINITION)
-active_atLeast4sp <- read.table(file = "./roller/active_conserved_atLeast2sp.txt"
-                                , header = T, stringsAsFactors = F, sep = "\t")#
-poised_atLeast4sp <- read.table(file = "./roller/poised_conserved_atLeast2sp.txt"
-                                , header = T, stringsAsFactors = F, sep = "\t") #
-cons_enh <- rbind(active_atLeast4sp, poised_atLeast4sp)
+recent_enh <- mouse.enh[mouse.enh$V6 == "Recent",]
+active_atLeast2sp <- read.table(file = "./roller/active_conserved_atLeast2sp.txt"
+                                , header = T, stringsAsFactors = F, sep = "\t")
+poised_atLeast2sp <- read.table(file = "./roller/poised_conserved_atLeast2sp.txt"
+                                , header = T, stringsAsFactors = F, sep = "\t")
+cons_enh <- rbind(active_atLeast2sp, poised_atLeast2sp)
 # separate tissues
 library(tidyr)
 library(dplyr)
@@ -86,7 +85,7 @@ cons_enh$end <- sub(".*-", "", sub(".*:", "", cons_enh$V1))
 cons_enh$start <- as.integer(cons_enh$start)
 cons_enh$end <- as.integer(cons_enh$end)
 
-#200kb bins and cluster membership
+# bins and cluster membership
 all <- mouse_RT[,"kmeans.cluster",drop =F]
 all$peakid <- rownames(all)
 all$chr <- gsub(":.*", "", all$peakid)
@@ -111,8 +110,8 @@ tmp <- data.frame(chr = c(poised_recent.long$V1, poised_cons$chr)
                   #ignore tissue
                   # , tissue = c(tolower(poised_recent.long$tissue), poised_cons$type)
                   , enh_type = c(poised_recent.long$enh_type, poised_cons$enh_type)
-                  , stringsAsFactors = F)#
-tmp <- unique(tmp)# 103979      4
+                  , stringsAsFactors = F)
+tmp <- unique(tmp)
 #remove tissue and keep unique
 
 cons_rec <- lapply(1:18, function(x) cons.recent.ov.cluster(all, x, tmp))
@@ -134,18 +133,15 @@ tmp <- data.frame(chr = c(active_recent.long$V1, active_cons$chr)
                   # , tissue = c(tolower(active_recent.long$tissue), active_cons$type)
                   , enh_type = c(active_recent.long$enh_type, active_cons$enh_type)
                   , stringsAsFactors = F)#
-tmp <- unique(tmp)# 64662     4
+tmp <- unique(tmp)
 
 #remove tissue and keep unique
 cons_rec <- lapply(1:18, function(x) cons.recent.ov.cluster(all, x, tmp))
 mean_mouseRT$all.conserved.active <- unlist(lapply(1:18, function(x) cons_rec[[x]]['conserved']))
 mean_mouseRT$all.recent.active <- unlist(lapply(1:18, function(x) cons_rec[[x]]['recent']))
 
-##plot number of recent and conserved enhancers -poised vs active
-
-
 ### SCATTERPLOTS
-# tmp <- mean_mouseRT[,c(1:3, 8:9)]#18  5
+# tmp <- mean_mouseRT[,c(1:3, 8:9)]
 tmp <- melt(mean_mouseRT, id = c("kmeans.cluster", "mean_germlineRT", "mean_somaticRT"))
 # unique(tmp$variable)
 # [1] all.conserved.poised all.recent.poised    all.conserved.active
@@ -156,7 +152,7 @@ tmp$enh_type <- factor(tmp$enh_type, levels = c("Active", "Poised"))
 tmp$age <- ifelse(grepl("conserved", tmp$variable), "conserved", "recent")
 tmp$age <- factor(tmp$age, levels = c("conserved", "recent"))
 
-#
+
 pdf("mouse_rt_recent_cons_nEnh_allTissues_by_type_mm10_germ_v_somatic_cons2sp.pdf")
 ggplot(tmp, aes(x=mean_germlineRT, y=log10(value), group=age, color=age)) +
   geom_point() + theme_classic() +
@@ -167,12 +163,10 @@ dev.off()
 
 #testing the difference in slope
 tmp$age_bin <- ifelse(tmp$age == "recent", 1, 0)
-unique(tmp[,c("age", "age_bin")])
-# age age_bin
-# 1  conserved       0
-# 19    recent       1
+                                                
 tmp$age_bin <- as.factor(tmp$age_bin)
 tmp$log10_nEnh <- log10(tmp$value)
+                                                
 #all
 x <- lm(log10_nEnh ~ mean_germlineRT + age_bin + age_bin:mean_germlineRT, data = tmp)
 coef(summary(x))
