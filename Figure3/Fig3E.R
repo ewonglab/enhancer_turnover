@@ -132,3 +132,12 @@ x <- wilcox.test(enh_activity[enh_activity$rel_rt == "early" &
 # data:  enh_activity[enh_activity$rel_rt == "early" & enh_activity$type == "recent", "log2.Starr.seq.score."] and enh_activity[enh_activity$rel_rt == "late" & enh_activity$type == "recent", "log2.Starr.seq.score."]
 # W = 6091, p-value = 0.07593
 # alternative hypothesis: true location shift is not equal to 0
+
+                          
+                          
+as.data.frame(table(enh_activity[,c("rel_rt", "type")]))
+# rel_rt      type Freq
+# 1  early conserved  253
+# 2   late conserved   17
+# 3  early    recent  202
+# 4   late    recent   52
