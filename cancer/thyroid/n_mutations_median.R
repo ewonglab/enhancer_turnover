@@ -69,3 +69,9 @@ ggplot(df_medians, aes(x=rt_quintile, y=(median), group=study, color=study)) +
   geom_errorbar(aes(ymin=(median-se), ymax=(median+se)), width=.2,
                 position=position_dodge(0.05))
 dev.off()
+
+df_unique <- unique(df[,c("region", "Peaks")])
+table(df_unique$Peaks)
+
+# Gains Unchanged    Losses 
+# 194       555        97 
