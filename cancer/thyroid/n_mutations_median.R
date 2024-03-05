@@ -5,13 +5,12 @@ library(reshape2)
 library(ggplot2)
 
 library(GenomicRanges)
-library(GenomicFeatures, lib = '/scratch/zk16/cc3704/R_packages')
-library("Formula", lib = "/scratch/zk16/cc3704/R_packages/R_4.0.0")
-library("Hmisc", lib = "/scratch/zk16/cc3704/R_packages/R_4.0.0")
+library(GenomicFeatures)
+library("Formula")
+library("Hmisc")
 library(data.table)
 library(reshape2)
 
-setwd("/g/data/zk16/cc3704/replication_timing/human/thyroid")
 mut <- read.table(file = 'plot_vcf_RT_olaps.txt', header = T, stringsAsFactors = F)
 
 #taking unique enhancers as in the last version of the boxplots made with 
