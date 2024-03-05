@@ -5,13 +5,11 @@ library(reshape2)
 library(ggplot2)ewer)
 library(data.table)
 library(GenomicRanges)
-library(GenomicFeatures, lib = '/scratch/zk16/cc3704/R_packages')
-library("Formula", lib = "/scratch/zk16/cc3704/R_packages/R_4.0.0")
-library("Hmisc", lib = "/scratch/zk16/cc3704/R_packages/R_4.0.0")
+library(GenomicFeatures)
+library("Formula")
+library("Hmisc")
 library(reshape2)
 library(reshape2)
-
-setwd("/g/data/zk16/cc3704/replication_timing/human/AML")
 
 aml_mut <- read.table(file = 'aml_plot_vcf_RT_olaps.txt', header = T, stringsAsFactors = F)
 
@@ -72,3 +70,9 @@ ggplot(df_medians, aes(x=rt_quintile, y=(median), group=study, color=study)) +
   geom_errorbar(aes(ymin=(median-se), ymax=(median+se)), width=.2,
                 position=position_dodge(0.05))
 dev.off()
+
+df_unique <- unique(df[,c("region", "Peaks")])
+table(df_unique$Peaks)
+
+# Gains Unchanged    Losses 
+# 592       876       303 
