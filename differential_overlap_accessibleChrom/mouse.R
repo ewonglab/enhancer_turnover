@@ -6,90 +6,70 @@ library(dplyr)
 library(reshape2)
 library(data.table)
 
-active_cons <- read.table(file = "activeEnhancer_all_tissues_conserved_with_mouse_withTissueDup"
-                          , header = T, stringsAsFactors = F)#59398     6
-active_recent <- read.table(file = "activeEnhancer_all_tissues_mouse_only"
-                            , header = T, stringsAsFactors = F)#31618     7
-poised_cons <- read.table(file = "primedEnhancer_all_tissues_conserved_with_mouse_withTissueDup"
-                          , header = T, stringsAsFactors = F)#65703     6
-poised_recent <- read.table(file = "primedEnhancer_all_tissues_mouse_only"
-                            , header = T, stringsAsFactors = F)#62315     7
+mouse.enh <- read.table(file = "./roller/mouse_all_enh_byMark_type_and_tissue.bed"
+                        , header = F, stringsAsFactors = F
+                        , sep = "\t")
 
-active_cons <- unique(active_cons)#59398     6
-active_recent <- unique(active_recent)#25610     7
-poised_cons <- unique(poised_cons)#65703     6
-poised_recent <- unique(poised_recent)#55294     7
+recent_enh <- mouse.enh[mouse.enh$V6 == "Recent",]
+active_atLeast2sp <- read.table(file = "./roller/active_conserved_atLeast2sp.txt"
+                                , header = T, stringsAsFactors = F, sep = "\t")
+poised_atLeast2sp <- read.table(file = "./roller/poised_conserved_atLeast2sp.txt"
+                                , header = T, stringsAsFactors = F, sep = "\t")
 
-active_recent.long <- active_recent %>%
-  mutate(V6 = strsplit(as.character(active_recent$V6), ",")) %>%
-  unnest(V6)
+cons_enh <- rbind(active_atLeast2sp, poised_atLeast2sp)
 
-active_recent.long <- as.data.frame(active_recent.long)
-active_recent.long$tissue <- sub(pattern = "_H.*", "", active_recent.long$V6)
-active_recent.long$tissue <- sub(pattern = "Mouse_", "", active_recent.long$tissue)
-active_recent.long$V6 <- sub(pattern = ".*_H", "H", active_recent.long$V6)
-active_recent.long$V6 <- sub(pattern = "_.*", "", active_recent.long$V6)#32476     8
+library(tidyr)
+library(dplyr)
 
-poised_recent.long <- poised_recent %>%
-  mutate(V6 = strsplit(as.character(poised_recent$V6), ",")) %>%
-  unnest(V6)
+recent_enh <- recent_enh %>%
+  mutate(V7 = strsplit(as.character(V7), ",")) %>%
+  unnest(V7)
 
-poised_recent.long <- as.data.frame(poised_recent.long)
-poised_recent.long$tissue <- sub(pattern = "_H.*", "", poised_recent.long$V6)
-poised_recent.long$tissue <- sub(pattern = "Mouse_", "", poised_recent.long$tissue)
-poised_recent.long$V6 <- sub(pattern = ".*_H", "H", poised_recent.long$V6)
-poised_recent.long$V6 <- sub(pattern = "_.*", "", poised_recent.long$V6)#62600     8
+cons_enh <- cons_enh %>%
+  mutate(tissue = strsplit(as.character(tissue), ",")) %>%
+  unnest(tissue)
+
+recent_enh <- as.data.frame(recent_enh)
+cons_enh <- as.data.frame(cons_enh)
+
+cons_enh$chr <- paste0("chr", sub(":.*", "", cons_enh$V1))
+cons_enh$start <- sub("-.*", "", sub(".*:", "", cons_enh$V1))
+cons_enh$end <- sub(".*-", "", sub(".*:", "", cons_enh$V1))
+cons_enh$start <- as.integer(cons_enh$start)
+cons_enh$end <- as.integer(cons_enh$end) # unique rows
 
 # keep only coordinates and tissue
-active_cons <- unique(active_cons[,c("chr", "start", "end", "type")])
-active_recent.long <- unique(active_recent.long[,c("V1", "V2", "V3", "tissue")])
-poised_cons <- unique(poised_cons[,c("chr", "start", "end", "type")])
-poised_recent.long <- unique(poised_recent.long[,c("V1", "V2", "V3", "tissue")])
+cons_enh <- unique(cons_enh[,c("chr", "start", "end", "tissue")]) 
+recent_enh <- unique(recent_enh[,c("V1", "V2", "V3", "V7")])
 
 ## same column names
-colnames(active_cons) <- c("chr", "start", "end", "tissue")
-colnames(active_recent.long) <- c("chr", "start", "end", "tissue")
-colnames(poised_cons) <- c("chr", "start", "end", "tissue")
-colnames(poised_recent.long) <- c("chr", "start", "end", "tissue")
+colnames(cons_enh) <- c("chr", "start", "end", "tissue")
+colnames(recent_enh) <- c("chr", "start", "end", "tissue")
 
-active_recent.long$tissue <- tolower(active_recent.long$tissue)
-poised_recent.long$tissue <- tolower(poised_recent.long$tissue)
+cons_enh$tissue <- tolower(cons_enh$tissue)
+recent_enh$tissue <- tolower(recent_enh$tissue)
 
 # add type (conservation)
-active_cons$type <- "conserved"
-active_recent.long$type <- "recent"
-poised_cons$type <- "conserved"
-poised_recent.long$type <- "recent"
+cons_enh$type <- "conserved"
+recent_enh$type <- "recent"
 
-# separate enhancers by tissue
-# no available adult testis atac-seq or dnase-seq 
-brain <- rbind(active_cons[active_cons$tissue=="brain", ]
-               , active_recent.long[active_recent.long$tissue=="brain",]
-               , poised_cons[poised_cons$tissue=="brain",]
-               , poised_recent.long[poised_recent.long$tissue=="brain",])#59458     5
-muscle <- rbind(active_cons[active_cons$tissue=="muscle", ]
-                , active_recent.long[active_recent.long$tissue=="muscle",]
-                , poised_cons[poised_cons$tissue=="muscle",]
-                , poised_recent.long[poised_recent.long$tissue=="muscle",])#58677     5
-liver <- rbind(active_cons[active_cons$tissue=="liver", ]
-               , active_recent.long[active_recent.long$tissue=="liver",]
-               , poised_cons[poised_cons$tissue=="liver",]
-               , poised_recent.long[poised_recent.long$tissue=="liver",])#53943     5
+brain <- rbind(cons_enh[cons_enh$tissue=="brain", ]
+               , recent_enh[recent_enh$tissue=="brain",])
+muscle <- rbind(cons_enh[cons_enh$tissue=="muscle", ]
+                , recent_enh[recent_enh$tissue=="muscle",])
+liver <- rbind(cons_enh[cons_enh$tissue=="liver", ]
+               , recent_enh[recent_enh$tissue=="liver",])
 
-###
+### reading DNAse-seq 
+brain_dnase <- fread("./encode/ENCFF185BXA_brain_adult_mm10.bed.gz")
+liver_dnase <- fread("./encode/ENCFF542LZZ_DNAse_liver_mm10.bed.gz")
+muscle_dnase <- fread("./encode/ENCFF357NZL_muscle_adult_mm10.bed.gz") 
 
-### reading DNAse-seq
-brain_dnase <- fread("./encode/ENCFF185BXA_brain_adult_mm10.bed.gz")# 258549     10
-liver_dnase <- fread("./encode/ENCFF542LZZ_liver_adult_mm10.bed.gz")# 180516     10
-muscle_dnase <- fread("./encode/ENCFF357NZL_muscle_adult_mm10.bed.gz")# 83795    10
-
-##  test using a minimum percentage of basepairs in enhancers overlapping the DNAse-seq data
-### Note: provide the percentage in a range from 0 to 1
 overlap_with_dnasev2 <- function(enh, dnase, perc){
   dnase <- as.data.frame(unique(dnase[,1:3]))
   # make gr objects
-  enh_gr <- with(enh, GRanges( chr , IRanges( start, end )))
-  dnase_gr <- with(dnase, GRanges( V1 , IRanges( V2, V3 )))
+  enh_gr <- with(enh, GRanges( chr , IRanges( start + 1, end )))
+  dnase_gr <- with(dnase, GRanges( V1 , IRanges( V2 + 1, V3 )))
   hits <- (findOverlaps(enh_gr, dnase_gr))
   overlaps <- pintersect(enh_gr[queryHits(hits)], dnase_gr[subjectHits(hits)])
   # Note: percentage of overlap will be calculated with respect to the enhancer length
@@ -109,61 +89,68 @@ overlap_with_dnasev2 <- function(enh, dnase, perc){
 }
 
 
-
-###### ********************************************######
-######   AT LEAST 30% OF ENHANCER base pairs OVERLAP #####
-###### ********************************************######
-
 brain_fisher_30perc <- overlap_with_dnasev2(brain, brain_dnase, 0.3)
 #           DNAse NOT_DNAse
-# conserved  3204     33944
-# recent     3144     19166
+# conserved  3002     31782
+# recent     3125     19185
 
 brain_fisher_30perc
-
 # Fisher's Exact Test for Count Data
-#
+# 
 # data:  as.matrix(enh_freq)
 # p-value = 1
 # alternative hypothesis: true odds ratio is greater than 1
 # 95 percent confidence interval:
-#  0.5505211       Inf
+#  0.5543441       Inf
 # sample estimates:
-# odds ratio
-#  0.5754456
-#  
+# odds ratio 
+#  0.5799145 
+
+brain_fisher_30perc$p.value
+# [1] 1
+
+
 
 muscle_fisher_30perc <- overlap_with_dnasev2(muscle, muscle_dnase, 0.3)
 #           DNAse NOT_DNAse
-# conserved   745     35315
-# recent      861     21756
+# conserved   671     32822
+# recent      856     21761
 
 muscle_fisher_30perc
+
 # Fisher's Exact Test for Count Data
-#
+# 
 # data:  as.matrix(enh_freq)
 # p-value = 1
 # alternative hypothesis: true odds ratio is greater than 1
 # 95 percent confidence interval:
-#  0.4896707       Inf
+#  0.4762088       Inf
 # sample estimates:
-# odds ratio
-#  0.5330478
-#  
+# odds ratio 
+#  0.5197072 
+# 
+muscle_fisher_30perc$p.value
+# [1] 1
+
 
 liver_fisher_30perc <- overlap_with_dnasev2(liver, liver_dnase, 0.3)
-#     DNAse NOT_DNAse
-# conserved  2392     26755
-# recent     4838     19958
+#           DNAse NOT_DNAse
+# conserved  2187     24851
+# recent     4806     19990
 
 liver_fisher_30perc
+
 # Fisher's Exact Test for Count Data
-#
+# 
 # data:  as.matrix(enh_freq)
 # p-value = 1
 # alternative hypothesis: true odds ratio is greater than 1
 # 95 percent confidence interval:
-#  0.3528561       Inf
+#  0.3497271       Inf
 # sample estimates:
-# odds ratio
-#  0.3688201
+# odds ratio 
+#  0.3660509 
+
+liver_fisher_30perc$p.value
+# [1] 1
+
